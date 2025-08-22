@@ -55,7 +55,8 @@ server.use((err, req, res, next) => {
 
 /* ----- Start Server ----- */
 const port = config.PORT;
+const baseUrl = config.NODE_ENV === 'production' ? 'ghibli-forum-backend-production.up.railway.app' : `http://localhost:${port}`;
 server.listen(port, (err) => {
   if (err) throw err;
-  console.log(`> Backend server is running on http://localhost:${port}`);
+  console.log(`> Backend server is running on ${baseUrl}`);
 });

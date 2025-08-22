@@ -5,14 +5,12 @@
   "main": "server.js",
   "scripts": {
     "dev": "NODE_ENV=development nodemon server.js",
-    "start:local": "NODE_ENV=development node server.js",
-    "start:prod": "NODE_ENV=production node server.js",
+    "start": "npm run db:deploy && NODE_ENV=production node server.js",
     "db:migrate": "prisma migrate dev",
     "db:deploy": "prisma migrate deploy",
     "db:generate": "prisma generate",
     "db:reset": "prisma migrate reset",
-    "db:studio": "prisma studio",
-    "deploy": "npm run db:deploy && npm start:prod"
+    "db:studio": "prisma studio"
   },
   "dependencies": {
     "@azure/storage-blob": "^12.27.0",

@@ -1,4 +1,4 @@
-// const crypto = require('crypto');
+const config = require('../config');
 const nodemailer = require('nodemailer');
 
 // メール送信設定
@@ -7,17 +7,17 @@ const transporter = nodemailer.createTransport({
   port: 587,
   secure: false,
   auth: {
-    user: process.env.BREVO_USER,
-    pass: process.env.BREVO_PASSWORD
+    user: config.BREVO_USER,
+    pass: config.BREVO_PASSWORD
   }
 });
 
 const sendVerificationEmail = async (email, verificationToken) => {
   try {
-    const verificationUrl = `${process.env.FRONTEND_URL}/auth/verify-email?token=${verificationToken}`;
+    const verificationUrl = `${config.FRONTEND_URL}/auth/verify-email?token=${verificationToken}`;
     
     const mailOptions = {
-      from: `"ジブリ掲示板" <${process.env.BREVO_FROM_EMAIL || process.env.BREVO_USER}>`,
+      from: `"ジブリ掲示板" <${config.BREVO_FROM_EMAIL || config.BREVO_USER}>`,
       to: email,
       subject: 'ジブリ掲示板 - メールアドレスの確認',
       html: `
@@ -70,10 +70,10 @@ const sendVerificationEmail = async (email, verificationToken) => {
 
 const sendPasswordResetEmail = async (email, resetToken) => {
   try {
-    const resetUrl = `${process.env.FRONTEND_URL}/auth/reset-password?token=${resetToken}`;
+    const resetUrl = `${config.FRONTEND_URL}/auth/reset-password?token=${resetToken}`;
     
     const mailOptions = {
-      from: `"ジブリ掲示板" <${process.env.BREVO_FROM_EMAIL || process.env.BREVO_USER}>`,
+      from: `"ジブリ掲示板" <${config.BREVO_FROM_EMAIL || config.BREVO_USER}>`,
       to: email,
       subject: 'ジブリ掲示板 - パスワードのリセット',
       html: `

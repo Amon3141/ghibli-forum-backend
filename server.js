@@ -1,5 +1,4 @@
-require('dotenv').config();
-
+const config = require('./config');
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
@@ -18,10 +17,10 @@ server.use(cookieParser());
 
 /* ----- CORS Configuration ----- */
 const corsOptions = {
-  origin: process.env.NODE_ENV === 'production' 
+  origin: config.NODE_ENV === 'production' 
     ? [
-        process.env.FRONTEND_URL || 'https://ghibli-forum.vercel.app',
-        'https://your-frontend-domain.vercel.app' // Update this with your actual frontend URL
+        config.FRONTEND_URL,
+        'http://localhost:3000'
       ]
     : 'http://localhost:3000',
   credentials: true,
@@ -44,7 +43,7 @@ server.get('/', (req, res) => {
   res.json({ 
     message: 'Ghibli Forum API is running!',
     timestamp: new Date().toISOString(),
-    environment: process.env.NODE_ENV || 'development'
+    environment: config.NODE_ENV
   });
 });
 
@@ -55,7 +54,7 @@ server.use((err, req, res, next) => {
 });
 
 /* ----- Start Server ----- */
-const port = process.env.PORT || 8080;
+const port = config.PORT;
 server.listen(port, (err) => {
   if (err) throw err;
   console.log(`> Backend server is running on http://localhost:${port}`);

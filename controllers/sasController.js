@@ -1,6 +1,7 @@
+const config = require('../config');
 const blobSasGenerator = require("../utils/BlobSasGenerator");
 
-const accountName = process.env.AZURE_STORAGE_ACCOUNT_NAME;
+const accountName = config.AZURE_STORAGE_ACCOUNT_NAME;
 
 /**
  * Generate a SAS token for Azure Blob Storage

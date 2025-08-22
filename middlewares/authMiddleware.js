@@ -1,3 +1,4 @@
+const config = require('../config');
 const jwt = require('jsonwebtoken');
 
 function verifyToken(req, res, next) {
@@ -8,13 +9,13 @@ function verifyToken(req, res, next) {
   }
 
   try {
-    const decoded = jwt.verify(token, process.env.SECRET_KEY);
+    const decoded = jwt.verify(token, config.SECRET_KEY);
     req.user = decoded;
     next();
   } catch (err) {
     res.clearCookie('token', {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
+      secure: config.NODE_ENV === 'production',
       sameSite: 'strict'
     });
     return res.status(401).json({ error: 'Unauthorized' });

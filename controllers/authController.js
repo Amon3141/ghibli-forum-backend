@@ -2,6 +2,7 @@
  * Auth controller for handling authentication-related HTTP requests
  * @module controllers/authController
  */
+const config = require('../config');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const crypto = require('crypto');
@@ -9,9 +10,7 @@ const crypto = require('crypto');
 const userModel = require('../models/userModel');
 const { sendVerificationEmail, sendPasswordResetEmail } = require('../utils/emailHelpers');
 
-require('dotenv').config();
-
-const secretKey = process.env.SECRET_KEY;
+const secretKey = config.SECRET_KEY;
 
 const registerUser = async (req, res) => {
   const { userId, username, password, email } = req.body;
@@ -132,7 +131,7 @@ const loginUser = async (req, res) => {
 
     res.cookie('token', token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
+      secure: config.NODE_ENV === 'production',
       sameSite: 'strict',         // CSRF protection
       maxAge: 3 * 60 * 60 * 1000  // 3時間
     });
@@ -149,7 +148,7 @@ const loginUser = async (req, res) => {
 const logoutUser = async (req, res) => {
   res.clearCookie('token', {
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
+    secure: config.NODE_ENV === 'production',
     sameSite: 'strict'
   });
   return res.status(200).json({ message: 'ログアウトしました' });

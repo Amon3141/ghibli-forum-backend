@@ -17,15 +17,27 @@ server.use(cookieParser());
 
 /* ----- CORS Configuration ----- */
 const corsOptions = {
-  origin: config.NODE_ENV === 'production' 
-    ? [
-        config.FRONTEND_URL,
-        'http://localhost:3000'
-      ]
-    : 'http://localhost:3000',
+  origin: function (origin, callback) {
+    console.log('Request origin:', origin);
+    
+    const allowedOrigins = config.NODE_ENV === 'production' 
+      ? [config.FRONTEND_URL, 'http://localhost:3000']
+      : ['http://localhost:3000'];
+    
+    if (!origin) return callback(null, true);
+    
+    if (allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      console.log('Origin not allowed:', origin);
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'Cookie']
+  allowedHeaders: ['Content-Type', 'Authorization', 'Cookie'],
+  preflightContinue: false,
+  optionsSuccessStatus: 204
 };
 
 server.use(cors(corsOptions));

@@ -11,7 +11,8 @@
     "db:deploy": "prisma migrate deploy",
     "db:generate": "prisma generate",
     "db:reset": "prisma migrate reset",
-    "db:studio": "prisma studio"
+    "db:studio": "prisma studio",
+    "deploy": "npm run db:deploy && npm start:prod"
   },
   "dependencies": {
     "@azure/storage-blob": "^12.27.0",

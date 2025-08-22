@@ -18,8 +18,6 @@ server.use(cookieParser());
 /* ----- CORS Configuration ----- */
 const corsOptions = {
   origin: function (origin, callback) {
-    console.log('Request origin:', origin);
-    
     const allowedOrigins = config.NODE_ENV === 'production' 
       ? [config.FRONTEND_URL, 'http://localhost:3000']
       : ['http://localhost:3000'];
@@ -29,7 +27,6 @@ const corsOptions = {
     if (allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
-      console.log('Origin not allowed:', origin);
       callback(new Error('Not allowed by CORS'));
     }
   },

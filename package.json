@@ -5,6 +5,7 @@
   "main": "server.js",
   "scripts": {
     "dev": "NODE_ENV=development nodemon server.js",
+    "dev:prod": "NODE_ENV=production nodemon server.js",
     "start": "npm run db:deploy && NODE_ENV=production node server.js",
     "db:migrate": "prisma migrate dev",
     "db:deploy": "prisma migrate deploy",

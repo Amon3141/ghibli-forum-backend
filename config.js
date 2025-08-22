@@ -27,7 +27,7 @@ if (NODE_ENV === 'production') {
 
 const config = {
   NODE_ENV,
-  PORT: process.env.PORT || 3000,
+  PORT: process.env.PORT || 8080,
   DATABASE_URL: process.env.DATABASE_URL,
   SECRET_KEY: process.env.SECRET_KEY,
   FRONTEND_URL: process.env.FRONTEND_URL || 'http://localhost:3000',

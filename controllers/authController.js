@@ -123,22 +123,19 @@ const loginUser = async (req, res) => {
       isAdmin: user.isAdmin,
     }
 
+    // トークンの有効期限 (hrs)
+    const tokenExpireHours = 24;
+
     const token = jwt.sign(
       tokenPayload,
       secretKey,
-      { expiresIn: '3h' }
+      { expiresIn: `${tokenExpireHours}h` }
     );
-
-    res.cookie('token', token, {
-      httpOnly: true,
-      secure: config.NODE_ENV === 'production',
-      sameSite: 'strict',         // CSRF protection
-      maxAge: 3 * 60 * 60 * 1000  // 3時間
-    });
-
+    
     return res.status(200).json({
       message: 'ログインに成功しました',
-      user: tokenPayload
+      user: tokenPayload,
+      token: token
     })
   } catch (err) {
     return res.status(500).json({ error: 'ログイン中にエラーが発生しました' });

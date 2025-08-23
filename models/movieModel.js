@@ -24,7 +24,11 @@ async function findAllMovies() {
     include: {
       _count: {
         select: {
-          threads: true
+          threads: {
+            where: {
+              isDeleted: false
+            }
+          }
         }
       }
     },

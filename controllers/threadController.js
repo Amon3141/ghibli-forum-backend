@@ -87,6 +87,7 @@ async function postThread(req, res) {
     });
     res.status(201).json(thread);
   } catch (error) {
+    console.error('Error creating thread:', error);
     if (error.code === 'P2003') {
       return res.status(400).json({ error: '無効な映画IDまたは作成者ID' });
     }

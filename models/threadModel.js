@@ -158,7 +158,19 @@ async function findThreadsByMovie(movieId) {
  * @returns {Promise<Thread>} Created thread object
  */
 async function createThread(data) {
-  return await prisma.thread.create({ data });
+  return await prisma.thread.create({
+    data,
+    include: {
+      creator: {
+        select: {
+          id: true,
+          username: true,
+          userId: true
+        }
+      },
+      reactions: reactionInclude
+    }
+  })
 }
 
 /**
@@ -172,7 +184,20 @@ async function createThread(data) {
  * @throws {Error} If thread not found
  */
 async function updateThread(id, data) {
-  return await prisma.thread.update({ where: { id }, data });
+  return await prisma.thread.update({
+    where: { id },
+    data,
+    include: {
+      creator: {
+        select: {
+          id: true,
+          username: true,
+          userId: true
+        }
+      },
+      reactions: reactionInclude
+    }
+  });
 }
 
 /**

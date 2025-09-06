@@ -7,8 +7,6 @@ OS: macOS
 npm run dev
 ```
 
-→ Open [http://localhost:8080](http://localhost:8080) with your browser.
-
 ### PostgreSQL
 ```bash
 # Start the local PostgreSQL server

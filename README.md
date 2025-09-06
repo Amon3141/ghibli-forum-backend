@@ -1,3 +1,5 @@
+Frontend repo: [here](https://github.com/Amon3141/ghibli-forum-backend)
+
 ## Project Setup
 OS: macOS
 
